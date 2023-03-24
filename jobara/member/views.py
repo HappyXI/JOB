@@ -4,3 +4,7 @@ from django.shortcuts import render
 def index(request):
     print('index')
     return render(request, "member/index.html")
+
+def main(request):
+    print('main')
+    return render(request, "member/main.html")  
