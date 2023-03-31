@@ -1,136 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>합격을 부르는 자소서</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body {
-  position: relative;
-  margin-top: 300px;
-}
-
-body,h1,h2,h3,h4,h5,h6 {  font-family: "Lato", sans-serif;
-}
-
-.w3-bar,h1,button {
-  font-family: "Montserrat", sans-serif;
-}
-
-header {
-  position: fixed;
-  width: 100%;
-  background-color: white;
-  z-index: 1;
-}
-
-.w3-bar.w3-left-align {
-  margin-top: 60px;
-}
-input[type="checkbox"] {
-  margin-right: 30px;
-}
-input[type=checkbox] + a {
-    margin-bottom: 20px;
-  }
-  
-textarea {
-  height: 300%;
-}
-.my-textarea {
-  resize: none;
-  width: 160%;
-  height: 400px; /* 크기 조정 */
-}
-  .w3-btn {
-    font-size: 24px;
-    padding: 16px 32px;
-  }
-
-  .w3-btn:last-child {
-    float: right;
-  }
-</style> 
-
-</head>
-<body>
-
-
-<!-- Header -->
-<header class="w3-container w3-large" style="top: 0;">  
-  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-    <a href="#" class="w3-button w3-right"> <SMALL> <%=session.getAttribute("id")%> 님의 접속을 환영합니다. </SMALL></a>
-    <a href="#" class="w3-button w3-right"><SMALL>로그아웃</SMALL></a>
-  <div class="w3-container w3-red w3-center" style="padding:64px 16px">
-  <img src="logo.jpg"  style="height:80px; float:left;">
- <h6 class="w3-margin w3-jumbo" style="margin-left: 10px; line-height: 0.6;">합격을 부르는 자소서</h6>
-  <p class="w3-medium">합격 자소서의 키워드를 분석해 나만의 합격 자소서를 만들자</p>
-</div>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">메인</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">직종</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">회사</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Q&A</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white"><i class="fa fa-search"></i></a>
-    <a onclick="myAccFunc('Mypage2')" href="javascript:void(0)" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" id="Mypage">마이페이지<i class="fa fa-caret-down"></i></a>
-    <div id="Mypage2" class="w3-bar-block w3-hide">
-      <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white">회원정보수정</a>
-      <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white">회원탈퇴</a>
-    </div>
-  </div>
-</header>
-
-<script>
-function myAccFunc(id) {
-  var x = document.getElementById(id);
-  if (x.className.indexOf("w3-show") == -1) {
-    x.className += " w3-show";
-  } else { 
-    x.className = x.className.replace(" w3-show", "");
-  }
-}
-
+{% extends "base.html" %}
+{% block content %}
+ <script type="text/javascript">
+   function inputcheck() {
+	   f = document.f;
+ 	   f.submit();
+   }
 </script>
 <body>
 
 <!-- First Grid -->
-<div class="w3-row-padding w3-padding-64 w3-container">
-  <div class="w3-content">
-    <div class="w3-twothird">
-      <h1>직종별 합격 자소서</h1>
-      <table>
-        <tr>
-          <td>
-            <h5 class="w3-padding-32"><input type="checkbox" name="job" value="IT"> <a href="#">IT/SW 개발</a></h5>
-          </td>
-          <td>
-            <h5 class="w3-padding-32"><input type="checkbox" name="job" value="sales"> <a href="#">영업/마케팅&nbsp</a></h5>
-          </td>
-          <td>
-            <h5 class="w3-padding-32"><input type="checkbox" name="job" value="production"> <a href="#">제조/생산&nbsp</a></h5>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <h5 class="w3-padding-32"><input type="checkbox" name="job" value="IT"> <a href="#">개발/연구&nbsp</a></h5>
-          </td>
-          <td>
-            <h5 class="w3-padding-32"><input type="checkbox" name="job" value="sales"> <a href="#">요식업&nbsp</a></h5>
-          </td>
-          <td>
-            <h5 class="w3-padding-32"><input type="checkbox" name="job" value="production"> <a href="#">기타...&nbsp</a></h5>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div class="w3-third w3-center">
-    </div>
-  </div>
+<div class="w3-twothird">
+  <h1>직종별 합격 자소서</h1>
+  <table>
+    <tr>
+      <td><input type="checkbox" name="job" value="IT"> <a href="#">IT/SW 개발</a></td>
+      <td><input type="checkbox" name="job" value="sales"> <a href="#">영업/마케팅&nbsp</a></td>
+      <td><input type="checkbox" name="job" value="production"> <a href="#">제조/생산&nbsp</a></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="job" value="IT"> <a href="#">개발/연구&nbsp</a></td>
+      <td><input type="checkbox" name="job" value="sales"> <a href="#">요식업&nbsp</a></td>
+      <td><input type="checkbox" name="job" value="production"> <a href="#">기타...&nbsp</a></td>
+    </tr>
+  </table>
 </div>
-
 <script>
   // 체크박스가 클릭되었을 때 이벤트 발생
   document.querySelectorAll('input[type=checkbox]').forEach(item => {
@@ -140,6 +33,11 @@ function myAccFunc(id) {
     });
   });
   </script>
+
+<font color="red">{{msg}}</font>
+<form action="/board/job/" method="post" enctype="multipart/form-data" name="f">
+      
+{% csrf_token %}
 
 <!-- Second Grid -->
 <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
@@ -151,34 +49,14 @@ function myAccFunc(id) {
       <h1>내 자소서 분석하기</h1>
       <div class="w3-row-padding">
        <div class="w3-col m6 l12 w3-padding-large">
-          <textarea class="w3-input w3-border" style="height: 400px; resize: none;" name="content" maxlength="5000"></textarea>
+         <textarea class="w3-input w3-border" style="height: 400px; resize: none;" name="content" maxlength="5000"></textarea>
           <button class="w3-btn w3-round-xxlarge" onclick="location.href='#'">내 자소서 가져오기</button>
-          <button class="w3-btn w3-round-xxlarge" onclick="location.href='#'">분석하기</button>
+          <button class="w3-btn w3-round-xxlarge" onclick="inputcheck()">분석하기</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-
-<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
-    <h1 class="w3-margin w3-xlarge">자소서 키워드를 분석 긍정/부정을 판단합니다.</h1>
-</div>
 </body>
-
-<!-- Footer -->
-<footer class="w3-container w3-padding-64 w3-center w3-opacity">  
-  <div class="w3-xlarge w3-padding-32">
-    <i class="fa fa-home w3-hover-opacity"><a href="#"></a></i> 
-    <i class="fa fa-heart w3-hover-opacity"><a href="#"></a></i>
-    <i class="fa fa-facebook-official w3-hover-opacity"><a href="#"></a></i>
-    <i class="fa fa-instagram w3-hover-opacity"><a href="#"></a></i>
-    <i class="fa fa-linkedin w3-hover-opacity"><a href="#"></a></i>
- </div>
- <p>Powered by team 2 kic project</a></p>
-</footer>
-
-
-
-</body>
-</html>
+{% endblock %}
