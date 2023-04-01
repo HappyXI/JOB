@@ -7,7 +7,6 @@ Created on Fri Mar 10 11:15:13 2023
 from konlpy.tag import Okt
 import pickle
 import re
-
   
 def text_cleaning(text):
     # 불용어 목록 
@@ -33,7 +32,7 @@ def get_pos(text):
     return pos
    
 def analyze_text(text):
-      
+    
     with open('model/indextocoef.pkl', 'rb') as fp:
         indextocoef = pickle.load(fp)
 
