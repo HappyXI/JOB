@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from .models import Board
-from django.utils import timezone
 from django.http import HttpResponseRedirect
 from . import textpredict # 자소서 분석 프로그램이 있는 모듈을 import
 
