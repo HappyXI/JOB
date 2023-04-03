@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 Created on Fri Mar 10 11:15:13 2023
@@ -61,20 +62,5 @@ def analyze_text(text):
     else:
         return 0
         print(0)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
