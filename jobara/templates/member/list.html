@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<table class = "w3-table-all w3-border"><caption>회원 목록</caption>
+<tr class = "">
+<th>아이디</th>
+<th>사진</th>
+<th>이름</th>
+<th>성별</th>
+<th>전화</th><th>이메일</th><th>&nbsp;</th></tr>
+{% for m in mlist %} {# mlist 리스트 객체 반복문 #}
+<tr><td><a href = "/member/info/{{m.id}}">{{m.id}}</a></td>
+<td><img src = "/file/member/{{m.picture}}" width = "20" height = "30"></td>
+<td>{{m.name}}</td><td>
+        {% if m.gender == 1 %}
+         남
+        {% else %}
+         여
+        {% endif %}
+</td>
+<td>{{m.tel}}</td><td>{{m.email}}</td>
+<td><a href = "/member/update/{{m.id}}/">[수정]</a>
+{% if m.id != 'admin' %}
+<a href = "/member/delete/{{m.id}}/">[강제 탈퇴]</a>
+{% endif %}
+</td></tr>
+{% endfor %} {# 반복문 종료 #}
+</table>
+{% endblock content%}

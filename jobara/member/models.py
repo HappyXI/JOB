@@ -12,6 +12,7 @@ class Member(models.Model) :
     email = models.CharField(max_length=100)
     picture = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
+    address_detail = models.CharField(max_length=200)
     birthday = models.DateTimeField(null = True)
     
     #def __repr__(self) : 같은 함수
