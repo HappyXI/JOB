@@ -11,12 +11,17 @@ from konlpy.tag import Okt
 
 df = pd.read_csv('data/context_init_1to179.csv', sep=',')
 
+
+def load_stopwords(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        stopwords = f.read().splitlines()
+    return stopwords
+
+stopwords = load_stopwords("model/stopwords.txt")
+
 #한글, 공백, 숫자 영자부분만 전달
 def text_cleaning(text):
-    # 불용어 목록 
-    stopwords = ['그리고', '하지만', '그런데', '따라서', '그래서', '또한', '이러한', '바로', '이런', '결국',
-                 '합니다','했습니다','입니다',]
-
+    
     # 한글, 영문, 숫자 및 공백만 남기고 제거
     nhangul = re.compile('[^ ㄱ-ㅣ 가-힣 a-zA-Z0-9]+')
     text = nhangul.sub("", text)
@@ -208,7 +213,7 @@ classifier.fit(X_train, y_train)
 
 
 # 확률 임계값 설정
-threshold = 0.7
+threshold = 0.3
 
 # '미분류' 행 선택
 unclassified_data = df[df['분류'] == '미분류']
@@ -227,7 +232,7 @@ predicted_class = classifier.classes_[np.argmax(predicted_proba, axis=1)]
 unclassified_data['분류_예측'] = np.where(max_proba < threshold, '미분류', predicted_class)
 
 # 결과 확인
-# print(unclassified_data[['질문', '분류_예측']])
+print(unclassified_data[['질문', '분류_예측']])
 
 
 unclassified_data['분류_예측'].value_counts()

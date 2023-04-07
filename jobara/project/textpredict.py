@@ -10,11 +10,16 @@ import pickle
 import re
 
 
-def text_cleaning(text):
-    # 불용어 목록 
-    stopwords = ['그리고', '하지만', '그런데', '따라서', '그래서', '또한', '이러한', '바로', '이런', '결국',
-                 '합니다','했습니다','입니다',]
 
+def load_stopwords(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        stopwords = f.read().splitlines()
+    return stopwords
+
+stopwords = load_stopwords("model/stopwords.txt")
+
+#한글, 공백, 숫자 영자부분만 전달
+def text_cleaning(text):
     # 한글, 영문, 숫자 및 공백만 남기고 제거
     nhangul = re.compile('[^ ㄱ-ㅣ 가-힣 a-zA-Z0-9]+')
     text = nhangul.sub("", text)
