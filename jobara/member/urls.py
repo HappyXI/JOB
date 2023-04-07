@@ -13,4 +13,5 @@ urlpatterns = [
     path("password/", views.password, name = "password"),
     path("picture/", views.picture, name = "picture"),
     path("update/<str:id>/", views.update, name = "update"),
+    path("logout/", views.logout, name = "logout"),
 ]

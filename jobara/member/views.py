@@ -2,7 +2,10 @@ from django.shortcuts import render
 from .models import Member
 from django.http import HttpResponseRedirect
 import time
-from datetime import datetime
+from django.contrib import auth
+from intercept.intercepter import loginIdchk
+from intercept.intercepter import loginChk
+from intercept.intercepter import adminChk
 
 # Create your views here.
 def index(request):
@@ -31,12 +34,13 @@ def join(request):
         member.save() #insert 실행
         return HttpResponseRedirect("/member/login")
 
-def delete(request):
+@loginChk
+def delete(request, id):
     return render(request, "member/delete.html")
 
+@loginIdchk
 def info(request, id):
     member = Member.objects.get(id = id)
-    birth = member.birthday.strftime("%Y-%m-%d")    
     
     return render(request, "member/info.html", {"mem":member})
 
@@ -66,11 +70,32 @@ def login(request):
         
         return HttpResponseRedirect("/member/main/")
 
+def logout(request):
+    print(request.session.session_key)
+    auth.logout(request) #세션 종료
+    return HttpResponseRedirect("/member/login/")
+    
+#@adminChk
 def list(request):
-    return render(request, "member/list.html")
+    mlist = Member.objects.all()
+    return render(request, "member/list.html", {"mlist":mlist})
 
 def password(request):
-    return render(request, "member/password.html")
+    login = request.session["login"]
+    if request.method != "POST":
+        return render(request, "member/passwordForm.html")
+    else : 
+        member = Member.objects.get(id = login)
+        if member.pass1 == request.POST["pass"] : #비밀번호 변경
+            member.pass1 = request.POST["chgpass"] # 변경할 비밀번호로 비밀번호값 수정
+            member.save() #수정
+            context = {"msg": "비밀번호 수정 완료",\
+                       "url": "/member/info/"+login+"/", "closer":True}
+            return render(request, "member/password.html", context)
+        else:
+            context = {"msg": "비밀번호 오류",\
+                       "url": "/member/password/", "closer":False}
+            return render(request, "member/password.html", context)
 
 def picture(request):
     if request.method != 'POST':
@@ -83,6 +108,7 @@ def picture(request):
         handle_upload(request.FILES["picture"])
         return render(request, "member/picture.html", {"fname":fname})
 
+@loginIdchk
 def update(request,id):
     member = Member.objects.get(id = id)
     if request.method != "POST":    
