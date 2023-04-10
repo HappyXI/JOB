@@ -265,3 +265,8 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django
+jobara/database/migrations/__init__.py
+jobara/database/migrations/0001_initial.py
+jobara/database/migrations/0002_alter_database_answer.py
+jobara/database/auth/auth.json
+jobara/database/auth/token.json
