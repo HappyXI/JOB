@@ -1,0 +1,6 @@
+<script>
+    img = opener.document.getElementById("pic"); //이미지 태그
+    img.src = "/file/member/{{fname}}";
+    opener.document.f.picture.value="{{fname}}"; // input 태그. hidden
+    self.close();
+</script>
