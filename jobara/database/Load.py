@@ -1,4 +1,11 @@
-# pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
+#pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
+#위에 4줄 먼저 실행하고 하면 댐
+import os
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jobara.settings')
+application = get_wsgi_application()
+#이거 4줄
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
