@@ -271,3 +271,5 @@ jobara/database/migrations/0002_alter_database_answer.py
 jobara/database/auth/auth.json
 jobara/database/auth/token.json
 jobara/member/__pycache__/models.cpython-39.pyc
+# 마이그레이션 디렉토리 무시
+/migrations/
