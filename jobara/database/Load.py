@@ -37,7 +37,7 @@ with open(token_path, 'w') as token_file:
 # 구글 API 권한 인증 및 빌드
 service = build('drive', 'v3', credentials=creds)
 # 파일 ID
-file_id = '1paHKrII_xr09mDFSF_qKEd0_-sq7ng2f'
+file_id = '1c01sYFTJbG40XsKIUhMLoP5yxJjpsKej'
 
 # 파일 속성 표시
 file = service.files().get(fileId=file_id).execute()
@@ -70,12 +70,12 @@ def create_database_record(r):
         return
     # board_num이 존재하지 않는다면 새로운 레코드를 추가합니다.
     Database.objects.create(
-        board_num=r[0],
-        company_name=r[1],
-        industry_classification=r[2],
-        grade=r[3],
-        score=r[4],
-        answer=r[5]
+        board_num=r[1],
+        company_name=r[2],
+        industry_classification=r[3],
+        grade=r[4],
+        score=r[5],
+        answer=r[6]
     )
 
 # 데이터프레임을 레코드로 변환
