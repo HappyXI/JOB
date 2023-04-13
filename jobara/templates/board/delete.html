@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{%  block content %}
+<form action = "/board/delete/{{num}}" name = "f" method = "post">
+{% csrf_token %}
+<input type = "hidden" name="num" value="{{num}}">
+<table class = "w3-table-all">
+    <caption>게시글 삭제 화면</caption>
+    <tr><td>게시글 비밀번호</td>
+        <td><input type = "password" name="pass" class="w3-input w3-border"></td></tr>
+    <tr><td colspan="2" class = "w3-center">
+        <input type = "submit" value="게시글삭제"></td></tr>
+</table></form>
+{% endblock %}

@@ -71,10 +71,16 @@ textarea.my-textarea {
 
 <!-- Header -->
 <header class="w3-container w3-large" style="top: 0;">  
-  <div class="w3-bar w3-red w3-card w3-left-align w3-large"> 
+  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+  {% if request.session == "admin" %}
    <a href="#"  class="w3-button w3-right"><SMALL>회원리스트</SMALL></a>   
-    <a href="#" class="w3-button w3-right"> <SMALL> <%=session.getAttribute("id")%> 님의 접속을 환영합니다. </SMALL></a>
-    <a href="#" class="w3-button w3-right"><SMALL>로그아웃</SMALL></a>
+  {% endif %}
+  {% if request.session.login %}
+    <a href="#" class="w3-button w3-right"> <SMALL>{{request.session.login}}님의 접속을 환영합니다. </SMALL></a>
+    <a href="/member/logout/" class="w3-button w3-right"><SMALL>로그아웃</SMALL></a>
+  {% else %}
+      <a href="/member/login/" class="w3-button w3-right"><SMALL>로그인</SMALL></a>
+  {% endif %}
   <div class="w3-container w3-red w3-center" style="padding:30px 14px">
   <img src="/file/logo.jpg"  style="height:80px; float:left;">
  <h6 class="w3-margin w3-jumbo" style="margin-left: 10px; line-height: 0.6;">합격을 부르는 자소서</h6>
@@ -82,13 +88,13 @@ textarea.my-textarea {
 </div>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">직종</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">회사</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Q&A</a>
+    <a href="/board/list/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Q&A</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white"><i class="fa fa-search"></i></a>
     <a onclick="myAccFunc('Mypage2')" href="javascript:void(0)" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" id="Mypage">마이페이지<i class="fa fa-caret-down"></i></a>
     <div id="Mypage2" class="w3-bar-block w3-hide">
-      <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white">회원정보수정</a>
-       <a href="#"  class="w3-bar-item w3-button w3-padding-large w3-hover-white"> 회원정보확인 </a>
-      <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white">회원탈퇴</a>
+      <a href="/member/update/{{request.session.login}}" class="w3-bar-item w3-button w3-padding-large w3-hover-white">회원정보수정</a>
+       <a href="/member/info/{{request.session.login}}"  class="w3-bar-item w3-button w3-padding-large w3-hover-white"> 회원정보확인 </a>
+      <a href="/member/delete/{{request.session.login}}" class="w3-bar-item w3-button w3-padding-large w3-hover-white">회원탈퇴</a>
     </div>
   </div>
 </header>

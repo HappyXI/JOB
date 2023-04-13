@@ -16,6 +16,11 @@ def loginIdchk(func):
         return func(request,id)
     return check
 
+    def check(request):
+        context = {"msg":"로그인하세요", "url":"/member/login/"}
+        return render(request, "alert.html", context)
+        
+
 
 def loginChk(func):
     def check(request, id):
@@ -26,6 +31,10 @@ def loginChk(func):
             return render(request, "alert.html", context)
         return func(request, id)
     return check
+
+    def check(request):
+        context = {"msg":"로그인하세요", "url":"/member/login/"}
+        return render(request, "alert.html", context)
 
 def adminChk(func):
     def check(request, id):
@@ -40,3 +49,7 @@ def adminChk(func):
                 return render(request, "alert.html", context)
         return func(request,id)
     return check
+
+    def check(request):
+        context = {"msg":"로그인하세요", "url":"/member/login/"}
+        return render(request, "alert.html", context)

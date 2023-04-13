@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+ <script type="text/javascript">
+   function inputcheck() {
+	   f = document.f;
+ 	   f.submit();
+   }
+</script>
+<body>
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-third w3-center">
+    </div>
+    <div class="w3-twothird">
+      <h1>내 자소서 분석하기</h1>
+      <div class="w3-row-padding">
+       <div class="w3-col m6 l12 w3-padding-large">
+       <!-- onsubmit="return inputcheck(this)"-->
+       <form action="/board/resume/{{resume.id}}/" name="f" method="post">
+        {% csrf_token %}
+         <textarea class="w3-input w3-border" style="height: 400px; resize: none;" name="content" maxlength="5000">{{resume.content}}</textarea>
+          <input type="submit" class="w3-btn w3-round-xxlarge" value="이력서 저장하기">
+        </form>
+            <button class="w3-btn w3-round-xxlarge" onclick="location.href = '/member/login/'">분석하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+{% endblock %}

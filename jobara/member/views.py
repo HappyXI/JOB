@@ -144,3 +144,15 @@ def handle_upload(f):
         #f.chunks() : 업로드된 파일에서 버퍼만큼 읽기
         for ch in f.chunks():
             dest.write(ch) #출력파일에 저장
+            
+def deleteno(request):
+    context = {"msg":"로그인하세요", "url":"/member/login/"}
+    return render(request, "alert.html", context)
+
+def updateno(request):
+    context = {"msg":"로그인하세요", "url":"/member/login/"}
+    return render(request, "alert.html", context)
+
+def infono(request):
+    context = {"msg":"로그인하세요", "url":"/member/login/"}
+    return render(request, "alert.html", context)

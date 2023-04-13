@@ -13,3 +13,10 @@ class Board(models.Model):
      
     def __str__(self):
         return str(self.num) + ":" + self.subject
+
+class Mem_Resume(models.Model):
+    
+    id = models.CharField(primary_key = True, max_length=20)
+    content = models.CharField(max_length=5000, null = True)
+    company = models.CharField(max_length=40, null = True)
+    job = models.CharField(max_length=40)

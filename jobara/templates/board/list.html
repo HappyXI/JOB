@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<table border="1" width="100%" cellpadding="0" cellspacing="0"
+	  class="table table-bordered table-hover">
+		<tr align="center">
+			<td colspan="4">장고 게시판</td>
+           
+           
+				<td align="center">글개수 :{{listcount}}</td>
+		</tr>
+		<tr align="center" valign="middle">
+			<td width="8%">번호</td><td width="50%">제목</td>
+			<td width="14%">작성자</td><td width="17%">날짜</td>
+			<td width="11%">조회수</td></tr>
+       {% for bo in board %} {# 게시글 출력 : bo: 개시물 한개 저장 #}
+			<tr align="center" valign="middle">
+				<td>{{bo.num}}</td><td align="left">
+         
+             
+					<a href="/file/board/{{bo.file1}}">@{{bo.file1}}</a>
+             
+                    &nbsp;&nbsp;&nbsp;
+             
+        
+                <a	href="../info/{{bo.num}}">{{bo.subject}}</a></td>
+				<td>{{bo.name}}</td><td>{{bo.regdate}}</td>
+				<td>{{bo.readcnt}}</td></tr>
+        {% endfor %}
+     
+      
+		<tr align="right"><td colspan="5"><a href="/board/write">[글쓰기]</a></td></tr>
+	
+	<!-- Pagination -->
+	<tr><td  colspan="5" style="text-align:center">
+           <div class="pagination">
+               <div style="width:35%; margin: 5px; display:inline">
+              {% if board.has_previous %}{#앞 페이지가 존재? #}
+                   <a class="abutton" href="?pageNum=1">맨 앞으로</a>
+                   <a class="abutton" href="?pageNum={{board.previous_page_number}}">이전</a>
+             {% endif %}
+               </div>
+               <div style="width:30%; margin: 5px; display:inline">
+                     
+             {% for page in page1 %}
+                 
+                   <span class="{% if page == bord.number %} current{% endif%}">
+                       <a href="?pageNum={{page}}">{{page}}</a>
+                   </span>
+             {% endfor %}
+               </div><div style="width:35%; margin: 5px; display:inline">
+              {% if board.has_next %}{# 다음 페이지가 존재?#}
+                   <a class="abutton" href="?pageNum={{board.next_page_number}}">다음</a>
+                   <a class="abutton" href="?pageNum={{board.paginator.num_pages}}">맨 뒤로</a>
+            {% endif %}
+               </div></div></td></tr>
+               
+    </table>
+               
+               
+{% endblock content %}

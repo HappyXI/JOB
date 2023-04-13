@@ -14,4 +14,7 @@ urlpatterns = [
     path("picture/", views.picture, name = "picture"),
     path("update/<str:id>/", views.update, name = "update"),
     path("logout/", views.logout, name = "logout"),
+    path("info/", views.infono, name = "infono"),
+    path("update/", views.updateno, name = "updateno"),
+    path("delete/", views.deleteno, name = "deleteno"),
 ]

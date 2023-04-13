@@ -2,7 +2,7 @@
 {% block title %}회원정보{% endblock title %}
 {% block content %}
 <table class="w3-table-all w3-border"><caption>회원 정보 보기</caption>
-  <tr><td rowspan="6" width="30%">
+  <tr><td rowspan="7" width="30%">
  <img src="/file/member/{{mem.picture}}" width="200" height="210"></td>
     <th width="20%">아이디</th><td>{{mem.id}}</td></tr>
    <tr><th>이름</th><td>{{mem.name}}</td></tr>
@@ -13,12 +13,14 @@
    <tr><th>이메일</th><td>{{mem.email}}</td></tr>
    <tr><th>생년월일</th><td id = birthday></td></tr>
    <tr><th>주소</th><td>{{mem.address}}&nbsp{{mem.address_detail}}</td></tr>
-   
+   <tr><td colspan="2" class = "w3-center">
+    <a href="/board/resume/{{mem.id}}" class="w3-button w3-black">내 이력서 보기</a>
+   </td></tr>
    <tr><td colspan="2" class="w3-center">
      <a href="/member/update/{{mem.id}}/">[수정]</a>
      <a href="/member/delete/{{mem.id}}/">[탈퇴]</a>
-
 </td></tr></table>
+
 <script type="text/javascript">
 date = "{{mem.birthday}}"
 date = date.substr(0, date.length - 8)

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{%block content %}
+ <script type="text/javascript">
+   function inputcheck() {
+	   f = document.f;
+ 	   f.submit();
+   }
+</script>
+<!-- file/board 폴더에 파일 업로드하기-->
+<form action="../write/" method="post"  
+      enctype="multipart/form-data" name="f">
+{% csrf_token %}
+<table class="w3-table-all"><caption>게시판 글쓰기</caption>
+ <tr><td>글쓴이</td><td><input type="text" name="name"
+                  class="w3-input w3-border"></td></tr>
+ <tr><td>제목</td><td><input type="text" name="subject"
+                  class="w3-input w3-border"></td></tr>
+ <tr><td>내용</td><td><textarea rows="15" name="content"
+    id="content" class="w3-input w3-border"></textarea></td></tr>
+ <tr><td>첨부파일</td><td><input type="file" name="file1"></td></tr>
+ <tr><td colspan="2" class="w3-center">
+   <a href="javascript:inputcheck()">[게시물등록]</a></td></tr>
+</table></form>
+{% endblock %}
