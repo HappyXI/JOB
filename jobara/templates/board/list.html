@@ -4,7 +4,7 @@
 <table border="1" width="100%" cellpadding="0" cellspacing="0"
 	  class="table table-bordered table-hover">
 		<tr align="center">
-			<td colspan="4">장고 게시판</td>
+			<td colspan="4">Q&A</td>
            
            
 				<td align="center">글개수 :{{listcount}}</td>
@@ -24,12 +24,12 @@
              
         
                 <a	href="../info/{{bo.num}}">{{bo.subject}}</a></td>
-				<td>{{bo.name}}</td><td>{{bo.regdate}}</td>
+				<td>{{bo.id}}</td><td>{{bo.regdate}}</td>
 				<td>{{bo.readcnt}}</td></tr>
         {% endfor %}
      
       
-		<tr align="right"><td colspan="5"><a href="/board/write">[글쓰기]</a></td></tr>
+		<tr align="center"><td colspan="5"><a href="/board/write">[글쓰기]</a></td></tr>
 	
 	<!-- Pagination -->
 	<tr><td  colspan="5" style="text-align:center">

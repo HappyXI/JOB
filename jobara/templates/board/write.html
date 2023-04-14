@@ -10,9 +10,8 @@
 <form action="../write/" method="post"  
       enctype="multipart/form-data" name="f">
 {% csrf_token %}
+<input type = "hidden" name = "id" value="{{login}}">
 <table class="w3-table-all"><caption>게시판 글쓰기</caption>
- <tr><td>글쓴이</td><td><input type="text" name="name"
-                  class="w3-input w3-border"></td></tr>
  <tr><td>제목</td><td><input type="text" name="subject"
                   class="w3-input w3-border"></td></tr>
  <tr><td>내용</td><td><textarea rows="15" name="content"

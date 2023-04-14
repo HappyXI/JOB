@@ -31,6 +31,9 @@ def join(request):
                         address = request.POST["sample4_roadAddress"],\
                         address_detail= request.POST["sample4_detailAddress"],\
                         birthday = request.POST["birthday"])
+        
+        print(member)
+    
         member.save() #insert 실행
         return HttpResponseRedirect("/member/login")
 

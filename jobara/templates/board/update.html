@@ -7,16 +7,13 @@
    }
 </script>
 <!-- file/board 폴더에 파일 업로드하기-->
-<form action="/board/update/{{b.num}}" method="post"  
+<form action="/board/update/{{b.num}}/" method="post"  
       enctype="multipart/form-data" name="f">
 {% csrf_token %}
 <input type = "hidden" name = "num" value="{{b.num}}">
+<input type = "hidden" name = "id" value="{{b.id}}">
 <input type = "hidden" name = "file2" value="{{b.file1}}">
 <table class="w3-table-all"><caption>게시판 수정 화면</caption>
- <tr><td>글쓴이</td><td><input type="text" name="name" value = "{{b.name}}"
-                  class="w3-input w3-border"></td></tr>
- <tr><td>비밀번호</td><td><input type="password" name="pass"
-                  class="w3-input w3-border"></td></tr>
  <tr><td>제목</td><td><input type="text" name="subject" value = "{{b.subject}}"
                   class="w3-input w3-border"></td></tr>
  <tr><td>내용</td><td><textarea rows="15" name="content"

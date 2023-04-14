@@ -1,10 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-
-
+<input type = "hidden" name = "id1" value="{{b.id}}">
 <table class="w3-table-all"><caption>게시물 상세 보기</caption>
-<tr><th width="20%">글쓴이</th>
-<td width="80%" style="text-align:left">{{b.name}}</td></tr>
 <tr><th>제목</th><td style="text-align:left">{{b.subject}}</td></tr>
 <tr><th>내용</th><td><table style="width:100%; height:250px;">
 <tr><td style="border-width: 0px; vertical-align: top; text-align: left">

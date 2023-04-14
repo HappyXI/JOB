@@ -73,10 +73,15 @@ def resume(request, id):
         print(context)
         return render(request, "alert.html", context)
     
-
 def write(request):
     if request.method != "POST":
-        return render(request, "board/write.html")
+        try : 
+            login = request.session["login"]
+        except: # 로그아웃 상태 
+            context = {"msg":"로그인하세요", "url":"/board/list/"}
+            return render(request, "alert.html", context)
+        
+        return render(request, "board/write.html",{"login":login})
     else :          # POST 방식 요청
     #html에 {% csrf_token%}을 입력해야 함
         
@@ -86,10 +91,10 @@ def write(request):
             handle_upload(request.FILES["file1"])
         except : #업로드되는 파일이 없는 경우
             filename = ''
-        
-        b = Board(content= request.POST["content"],\
-                  id = request.POST["id"],\
-                  subject= request.POST["subject"],\
+    
+        b = Board(id = request.POST["id"],\
+                  subject = request.POST["subject"],\
+                  content = request.POST["content"],\
                   regdate = timezone.now(),\
                   readcnt = 0, file1 = filename)
         b.save()
@@ -136,13 +141,14 @@ def update(request, num):
     if request.method != "POST":
         board = Board.objects.get(num=num)
         return render(request, "board/update.html", {"b":board})
+    
     else : #POST 방식 요청
         filename = ''
         board = Board.objects.get(num=num)
-        pass1 = request.POST["pass"]
-        print(pass1)
-        if board.pass1 != pass1 : 
-            context = {"msg":"비밀번호 오류", "url":"/board/update/" + str(num)}
+        id1 = request.POST["id"]
+        print(id1)
+        if board.id != id1 : 
+            context = {"msg":"작성자만 수정이 가능합니다", "url":"/board/update/" + str(num)}
             return render(request, 'board/alert.html', context)
     
     try : 
@@ -156,8 +162,7 @@ def update(request, num):
     
     try:
         b = Board(num = num,\
-                  name = request.POST["name"],\
-                  pass1 = request.POST["pass"],\
+                  id = request.POST["id"],\
                   subject = request.POST["subject"],\
                   content = request.POST["content"],\
                   file1 = filename
@@ -167,27 +172,23 @@ def update(request, num):
     except Exception as e:
         print(e)
         context = {"msg" : "게시물 수정 실패",\
-                   "url" : "board/update/"+str(num)}
+                   "url" : "/board/update/"+str(num)}
         return render(request, "alert.html", context)
 
 def delete(request, num):
-    if request.method != 'POST':
-        return render(request, 'board/delete.html',{"num": num})
-    else :
-        board = Board.objects.get(num=num)
-        pass1 = request.POST["pass"]
-        print(pass1)
-        if board.pass1 != pass1:
-            context = {"msg" : "비밀번호 다름, 게시물 수정 실패",\
-                       "url" : "board/delete/"+str(num)}
-            return render(request, "alert.html", context)
-        try:
-            board.delete()
-            return HttpResponseRedirect("/board/list")
-        except:
-            context = {"msg" : "게시물 삭제 실패",\
-                       "url" : "board/delete/"+str(num)}
-            return render(request, "alert.html", context)
+    board = Board.objects.get(num = num)
+    if request.session["login"] != board.id:
+        context = {"msg" : "게시글 등록자만 삭제 가능합니다. 게시물 삭제 실패",\
+                   "url" : "/board/list/"}
+        return render(request, "alert.html", context)
+    try:
+        board.delete()
+        return HttpResponseRedirect("/board/list")
+    except:
+        context = {"msg" : "게시물 삭제 실패",\
+                   "url" : "/board/delete/"+str(num)}
+        return render(request, "alert.html", context)
+        
 def handle_upload(f):
     #업로드 위치 : BASE_DIR/file/board/ 폴더 
     #f.name : 업로드 파일 이름
