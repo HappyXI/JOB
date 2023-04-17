@@ -135,3 +135,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR , 'static')] #css, js 파일의 폴더
 #파일 업로드 폴더, URL 설정
 MEDIA_URL = "/file/"
 MEDIA_ROOT=os.path.join(BASE_DIR,"file")
+
+#세션 만료 시간 : 5분
+SESSION_COOKIE_AGE = 300

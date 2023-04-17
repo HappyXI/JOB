@@ -37,7 +37,7 @@ def loginChk(func):
         return render(request, "alert.html", context)
 
 def adminChk(func):
-    def check(request, id):
+    def check(request):
         try : 
             login = request.session["login"]
         except:
@@ -47,7 +47,7 @@ def adminChk(func):
             if login != "admin" and login != id:
                 context = {"msg":"관리자만 가능합니다.", "url":"/member/main/"}
                 return render(request, "alert.html", context)
-        return func(request,id)
+        return func(request)
     return check
 
     def check(request):

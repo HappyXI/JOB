@@ -11,12 +11,12 @@
 <style>
 body {
   position: relative;
-  margin-top: 300px;
   font-family: "Lato", sans-serif;
 }
 
 header {
-  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   background-color: white;
   z-index: 1;
@@ -24,7 +24,7 @@ header {
 }
 
 .w3-bar.w3-left-align {
-  margin-top: 60px;
+    
 }
 
 input[type="checkbox"] {
@@ -52,16 +52,42 @@ textarea.my-textarea {
 }
 
 .search-sidebar {
-  position: absolute;
-  top: 100px;
+  position: fixed;
+  top: 200px;
   right: 0;
   bottom: 0;
-  width: 300px;
+  width: 200px;
   height: calc(100vh - 40px);
-  overflow-y: auto;
-  background-color: #f1f1f1;
-  padding: 20px;
+  @media only screen and (max-width: 600px) {
+      display: none;
+  }
 }
+
+.menu-sidebar {
+  position: fixed;
+  top: 200px;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  height: calc(100vh - 40px);
+  @media only screen and (max-width: 600px) {
+      display: none;
+  }
+}
+
+.body-container{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20%;
+    margin-left: 20%;
+    @media only screen and (max-width: 600px) {
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
 
 </style> 
 
@@ -71,7 +97,7 @@ textarea.my-textarea {
 
 <!-- Header -->
 <header class="w3-container w3-large" style="top: 0;">  
-  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+  <div class="w3-bar w3-red w3-card w3-left-align">
   {% if request.session == "admin" %}
    <a href="#"  class="w3-button w3-right"><SMALL>회원리스트</SMALL></a>   
   {% endif %}
@@ -83,8 +109,6 @@ textarea.my-textarea {
   {% endif %}
   <div class="w3-container w3-red w3-center" style="padding:30px 14px">
   <img src="/file/logo.jpg"  style="height:80px; float:left;">
- <h6 class="w3-margin w3-jumbo" style="margin-left: 10px; line-height: 0.6;">합격을 부르는 자소서</h6>
-  <p class="w3-medium">합격 자소서의 키워드를 분석해 나만의 합격 자소서를 만들자</p>
 </div>
     <a href="/board/job/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">직종</a>
     <a href="/board/company/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">회사</a>
@@ -102,21 +126,32 @@ textarea.my-textarea {
 <script>
 function myAccFunc(id) {
   var x = document.getElementById(id);
+  var menu = document.getElementsByClassName("menu-sidebar");
+  var search = document.getElementsByClassName("search-sidebar");
   if (x.className.indexOf("w3-show") == -1) {
     x.className += " w3-show";
+    search[0].style.top = "350px";
+    menu[0].style.top = "350px";
   } else { 
     x.className = x.className.replace(" w3-show", "");
+    search[0].style.top = "200px";
+    menu[0].style.top = "200px";
   }
 }
 
 </script>
 <body>
+<div class = "body-container">
+{% block content %}
+{% endblock %}
+</div>
 
-{% block content %}{% endblock %}
-
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64" style = "margin-top: 200px">
+    <h1 class="w3-margin w3-xlarge">자소서 키워드를 분석 긍정/부정을 판단합니다.</h1>
+</div>
 <div class="search-sidebar">
 <!-- 최근 검색어 -->
-<div class="w3-card w3-margin w3-margin-top">
+<div class="w3-card w3-white w3-margin-top">
   <div class="w3-container w3-padding">
     <h4>최근 검색어</h4>
   </div>
@@ -136,9 +171,38 @@ function myAccFunc(id) {
   </ul>
 </div>
 </div>
-
-<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
-    <h1 class="w3-margin w3-xlarge">자소서 키워드를 분석 긍정/부정을 판단합니다.</h1>
+<div class="menu-sidebar">
+<!-- 최근 검색어 -->
+<div class="w3-card w3-white w3-margin-top">
+  <div class="w3-container w3-padding">
+    <h4>메뉴</h4>
+  </div>
+  <ul class="w3-ul w3-hoverable w3-white">
+    <li class="w3-padding-16">
+      <span class="w3-large">직종</span>
+    </li>
+    <li class="w3-padding-16">
+      <span class="w3-large">회사</span>
+    </li>
+    <li class="w3-padding-16">
+      <span class="w3-large">Q&A</span>
+    </li>
+    <li class="w3-padding-16">
+      <span class="w3-large">마이페이지</span>
+      <ul class = "w3-ul w3-hoverable">
+          <li>
+              회원정보수정
+          </li>
+          <li>
+              회원정보확인
+          </li>
+          <li>
+              회원탈퇴
+          </li>
+      </ul>
+    </li>
+  </ul>
+</div>
 </div>
 </body>
 
