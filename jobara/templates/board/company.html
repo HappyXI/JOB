@@ -6,52 +6,34 @@
  	   f.submit();
    }
 </script>
+
 <body>
 
 <!-- First Grid -->
 <div class="w3-twothird">
-  <h1>직종별 합격 자소서</h1>
+  <h1>회사별 합격 자소서</h1>
+  <div id="container">
   <table>
     <tr>
-      <td><input type="checkbox" name="company" value="삼성"> 삼성전자(주)</a></td>
-      <td><input type="checkbox" name="company" value="SK"> SK하이닉스(주)</a></td>
-      <td><input type="checkbox" name="company" value="GS"> GS리테일</a></td>
+      <td><input type="radio"  id="SS" name="company" value="SS"> 삼성전자(주)</a></td>
+      <td><input type="radio"  id="SK" name="company" value="SK"> SK하이닉스(주)</a></td>
+      <td><input type="radio"  id="GS" name="company" value="GS"> GS리테일</a></td>
     </tr>
-    <tr>
-      <td><input type="checkbox" name="company" value="한전"> 한국전력공사</a></td>
-      <td><input type="checkbox" name="company" value="CJ"> CJ제일제당(주)</a></td>
-      <td><input type="checkbox" name="company" value="NH"> NH농협은행</a></td>
+    <tr>  
+      <td><input type="radio"  id="HJ" name="company" value="HJ"> 한국전력공사</a></td>
+      <td><input type="radio"  id="CJ" name="company" value="CJ"> CJ제일제당(주)</a></td>
+      <td><input type="radio"  id="NH" name="company" value="NH"> NH농협은행</a></td>
     </tr>
+    </div>       
   </table>
 </div>
 <script>
-  // 체크박스가 클릭되었을 때 이벤트 발생
-  document.querySelectorAll('input[type=checkbox]').forEach(item => {
-    item.addEventListener('click', event => {
-      // 체크박스의 value 값을 가져옴
-      console.log(item.value);
-      // 클릭한 회사 이름에 따라 서로 다른 주소로 이동
-      if (item.value === '삼성') {
-        window.location.href = '/samsung_textpredict/';
-      } else if (item.value === 'NH') {
-        window.location.href = '/nh_textpredict/';
-      }else if (item.value === 'SK') {
-        window.location.href = '/sk_textpredict/';
-      }else if (item.value === '한전') {
-        window.location.href = '/hj_textpredict/';
-      }else if (item.value === 'CJ') {
-        window.location.href = '/cj_textpredict/';
-      }else if (item.value === 'GS') {
-        window.location.href = '/gs_textpredict/';
-      }
-      
-    });
-  });
-  </script>
-
+    var radios = document.querySelectorAll('input[type=radio][name="company"]');
+    radios.forEach(radio => radio.addEventListener('change', () => document.querySelector('input[name="company1"]').value = radio.value));
+    </script>
 <font color="red">{{msg}}</font>
-<form action="/board/company/" method="post" enctype="multipart/form-data" name="f">
-      
+<form action="/board/company/" method="post" enctype="multipart/form-data">
+<input type = "hidden" name="company1" value="">     
 {% csrf_token %}
 
 <!-- Second Grid -->
@@ -66,7 +48,7 @@
        <div class="w3-col m6 l12 w3-padding-large">
          <textarea class="w3-input w3-border" style="height: 400px; resize: none;" name="content" maxlength="5000"></textarea>
           <button class="w3-btn w3-round-xxlarge" onclick="location.href='#'">내 자소서 가져오기</button>
-          <button class="w3-btn w3-round-xxlarge" onclick="inputcheck()">분석하기</button>
+          <button class="w3-btn w3-round-xxlarge" id="submit" onclick="inputcheck()">분석하기</button>
         </div>
       </div>
     </div>
