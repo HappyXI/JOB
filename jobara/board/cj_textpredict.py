@@ -44,11 +44,11 @@ def get_pos(text):
     return pos
    
 def analyze_text(text):
-    print("ss1")
-    with open('model/ss_indextocoef.pkl', 'rb') as fp:
+    print("cj1")
+    with open('model/cj_indextocoef.pkl', 'rb') as fp:
         indextocoef = pickle.load(fp)
-    print("ss2")    
-    with open('model/ss_texttoindex.pkl', 'rb') as fp:
+    print("cj2")    
+    with open('model/cj_texttoindex.pkl', 'rb') as fp:
         texttoindex = pickle.load(fp)
 
    # lr = pickle.load(open('model/lregression.rl', 'rb'))
