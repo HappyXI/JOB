@@ -3,10 +3,21 @@ from .models import Board
 from .models import Mem_Resume
 from django.utils import timezone
 from django.http import HttpResponseRedirect
-from . import textpredict # 자소서 분석 프로그램이 있는 모듈을 import
+
 from intercept.intercepter import loginIdchk
 from intercept.intercepter import loginChk
 from django.core.paginator import Paginator
+from .samsung_textpredict import analyze_text
+
+
+from . import textpredict # 자소서 분석 프로그램이 있는 모듈을 import
+from . import samsung_textpredict  
+from . import sk_textpredict
+from . import gs_textpredict
+from . import hj_textpredict
+from . import cj_textpredict
+from . import nh_textpredict
+
 
 
 # Create your views here.
@@ -21,35 +32,34 @@ def job(request):
      else: # POST 방식 요청
          content = request.POST["content"]
          print(content)
-         analysis_result = textpredict.analyze_text(content) # 자소서 분석 함수 호출
+         analysis_result = samsung_textpredict.analyze_text(content) # 자소서 분석 함수 호출
          print(analysis_result)
          msg = '긍정적인 자소서입니다.' if analysis_result == 1 else '부정적인 자소서입니다.'
          return render(request, "board/job.html", {'msg': msg})    #상단에 표시
 
 def company(request):
-     if request.method !="POST" : #GET 방식일때
-         return render(request, "board/company.html")
-     
-     else: # POST 방식 요청
-         content = request.POST["content"]
-         print(content)
-         analysis_result = textpredict.analyze_text(content) # 자소서 분석 함수 호출
-         print(analysis_result)
-         msg = '긍정적인 자소서입니다.' if analysis_result == 1 else '부정적인 자소서입니다.'
-         return render(request, "board/company.html", {'msg': msg})    #상단에 표
-     
-def samsung_textpredict(request):
-     if request.method !="POST" : #GET 방식일때
-         return render(request, "board/company.html")
-     
-     else: # POST 방식 요청
-         content = request.POST["content"]
-         print(content)
-         analysis_result = samsung_textpredict.analyze_text(content) # 자소서 분석 함수 호출
-         print(analysis_result)
-         msg = '긍정적인 자소서입니다.' if analysis_result == 1 else '부정적인 자소서입니다.'
-         return render(request, "board/company.html", {'msg': msg})    #상단에 표시
-     
+    if request.method !="POST" : #GET 방식일때
+        return render(request, "board/company.html")             
+    else: # POST 방식 요청
+        content = request.POST["content"]
+        company = request.POST["company1"]
+        if company == "SS":
+            analysis_result = samsung_textpredict.analyze_text(content)      
+        elif company == "SK":
+            analysis_result = sk_textpredict.analyze_text(content)
+        elif company == "GS":
+            analysis_result = gs_textpredict.analyze_text(content)
+        elif company == "HJ":
+            analysis_result = hj_textpredict.analyze_text(content)
+        elif company == "CJ":
+            analysis_result = cj_textpredict.analyze_text(content)
+        elif company == "NH":
+            analysis_result = nh_textpredict.analyze_text(content)     
+        else : analysis_result = textpredict.analyze_text(content) # 자소서 분석 함수 호출                               
+        
+        context = { "msg": '긍정적인 자소서입니다.' if analysis_result == 1 else '부정적인 자소서입니다.', "url":"/board/company/"}
+        return render(request, "alert.html", context)
+             
 @loginIdchk
 def resume(request, id):
     
