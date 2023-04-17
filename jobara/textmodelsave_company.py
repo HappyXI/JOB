@@ -12,6 +12,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score 
 from konlpy.tag import Okt   
 import pickle
+import os
 
 
 import pandas as pd
@@ -123,6 +124,10 @@ for company, ccode in companies.items():
     #hj - accuracy(정확도): 0.4117647058823529    ->  0.47058823529411764    
         
     
+    model_dir = 'model'
+    if not os.path.exists(model_dir):
+        os.makedirs(model_dir)
+         
     #model save
     #1. 딕셔너리 생성
     #1)text to index  텍스트를 가지고 인덱스를 찾는 것
