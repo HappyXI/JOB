@@ -14,7 +14,6 @@ from konlpy.tag import Okt
 import pickle
 import os
 
-
 import pandas as pd
 from sqlalchemy import create_engine  #db가져오기
 
@@ -122,12 +121,11 @@ for company, ccode in companies.items():
     #sk - accuracy(정확도): 0.6944444444444444    ->  0.4634146341463415
     #ss - accuracy(정확도): 0.6833333333333333    ->  0.5333333333333333
     #hj - accuracy(정확도): 0.4117647058823529    ->  0.47058823529411764    
-        
-    
+       
     model_dir = 'model'
     if not os.path.exists(model_dir):
         os.makedirs(model_dir)
-         
+    
     #model save
     #1. 딕셔너리 생성
     #1)text to index  텍스트를 가지고 인덱스를 찾는 것

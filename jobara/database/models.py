@@ -16,7 +16,27 @@ class Database(models.Model):
         return str(self.board_num) + ":" + self.company_name
     class Meta:
         app_label = 'database'
+ 
         
+class Comtype(models.Model):
+    board_num = models.IntegerField(primary_key=True)
+    Thirties = models.IntegerField()
+    hundred = models.IntegerField()
+    big = models.IntegerField()
+    public = models.IntegerField()
+    foreign = models.IntegerField()
+    mid = models.IntegerField()
+    offering = models.IntegerField()
+    kosdaq = models.IntegerField() 
+   
+
+    def __str__(self):
+        return str(self.board_num) + ":" + self.company_name
+    class Meta:
+        app_label = 'database'
+ 
+        
+      
         
 class companydetail(models.Model):
     ccode = models.IntegerField(primary_key=True)
@@ -72,19 +92,6 @@ class resume(models.Model):
         app_label = 'database'   
 
 
-class good(models.Model):
-    index = models.AutoField(primary_key=True)
-    key = models.IntegerField()
-    ccode = models.IntegerField()
-    jcode = models.IntegerField()
-    value = models.CharField(max_length=20)
-     
-    
-    def __str__(self):
-        return str(self.board_num) + ":" + self.company_name
-    class Meta:
-        app_label = 'database'   
-        
-        
+            
         
         
