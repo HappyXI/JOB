@@ -78,10 +78,32 @@ def logout(request):
     auth.logout(request) #세션 종료
     return HttpResponseRedirect("/member/login/")
     
-#@adminChk
+@adminChk
 def list(request):
     mlist = Member.objects.all()
     return render(request, "member/list.html", {"mlist":mlist})
+
+def adminDelete(request, id):
+    try : 
+        login = request.session["login"]
+    except:
+        context = {"msg":"로그인하세요", "url":"/member/login/"}
+        return render(request, "alert.html", context)
+    else:
+        if login != "admin" and login != id:
+            context = {"msg":"관리자만 가능합니다.", "url":"/member/main/"}
+            return render(request, "alert.html", context)
+        
+    try :
+    #입력된 id값으로 Member 객체에서 조회
+        member = Member.objects.get(id = id)
+        # member.pass1 : db에 등록된 비밀번호
+        # pass1 : 입력된 비밀번호
+        member.delete()
+        return HttpResponseRedirect("/member/list/")
+    except:
+        context = {"msg":"아이디를 확인하세요","url":"/member/login/"}
+        return render(request, "alert.html", context)    
 
 def password(request):
     login = request.session["login"]
@@ -97,7 +119,7 @@ def password(request):
             return render(request, "member/password.html", context)
         else:
             context = {"msg": "비밀번호 오류",\
-                       "url": "/member/password/", "closer":False}
+                       "url": "/member/update/"+login+"/", "closer":True}
             return render(request, "member/password.html", context)
 
 def picture(request):

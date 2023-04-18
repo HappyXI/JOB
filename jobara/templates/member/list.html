@@ -20,7 +20,7 @@
 <td>{{m.tel}}</td><td>{{m.email}}</td>
 <td><a href = "/member/update/{{m.id}}/">[수정]</a>
 {% if m.id != 'admin' %}
-<a href = "/member/delete/{{m.id}}/">[강제 탈퇴]</a>
+<a href = "/member/adminDelete/{{m.id}}/">[강제 탈퇴]</a>
 {% endif %}
 </td></tr>
 {% endfor %} {# 반복문 종료 #}

@@ -17,4 +17,6 @@ urlpatterns = [
     path("info/", views.infono, name = "infono"),
     path("update/", views.updateno, name = "updateno"),
     path("delete/", views.deleteno, name = "deleteno"),
+    path("list/", views.list, name = "list"),
+    path("adminDelete/<str:id>/",views.adminDelete, name = "adminDelete")
 ]
