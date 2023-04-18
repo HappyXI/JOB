@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+ <script type="text/javascript">
+   function inputcheck() {
+	   f = document.f;
+ 	   f.submit();
+   }
+</script>
+
+<body>
+
+<!-- First Grid -->
+<div class="w3-twothird">
+  <h1>업종별 합격 자소서</h1>
+  <div id="container">
+  <table>
+    <tr>
+      <td><input type="radio"  id="30" name="company" value="30"> 30대그룹</a></td>
+      <td><input type="radio"  id="100" name="company" value="100"> 매출100</a></td>
+      <td><input type="radio"  id="big" name="company" value="big"> 대기업</a></td>
+      <td><input type="radio"  id="pub" name="company" value="pub"> 공공기관공사</a></td>
+    </tr>
+    <tr>  
+      <td><input type="radio"  id="foreign" name="company" value="foreign"> 외국계</a></td>
+      <td><input type="radio"  id="mid" name="company" value="mid"> 중견</a></td>
+      <td><input type="radio"  id="offer" name="company" value="offer"> 주식상장</a></td>
+      <td><input type="radio"  id="kos" name="company" value="kos"> 코스닥상장</a></td>
+    </tr>
+    </div>       
+  </table>
+</div>
+<script>
+    var radios = document.querySelectorAll('input[type=radio][name="company"]');
+    radios.forEach(radio => radio.addEventListener('change', () => document.querySelector('input[name="company1"]').value = radio.value));
+    </script>
+<font color="red">{{msg}}</font>
+<form action="/board/company/" method="post" enctype="multipart/form-data">
+<input type = "hidden" name="company1" value="">     
+{% csrf_token %}
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-third w3-center">
+    </div>
+
+    <div class="w3-twothird">
+      <h1>내 자소서 분석하기</h1>
+      <div class="w3-row-padding">
+       <div class="w3-col m6 l12 w3-padding-large">
+         <textarea class="w3-input w3-border" style="height: 400px; resize: none;" name="content" maxlength="5000"></textarea>
+          <button class="w3-btn w3-round-xxlarge" onclick="location.href='#'">내 자소서 가져오기</button>
+          <button class="w3-btn w3-round-xxlarge" id="submit" onclick="inputcheck()">분석하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+{% endblock %}

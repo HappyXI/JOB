@@ -17,8 +17,14 @@ from . import gs_textpredict
 from . import hj_textpredict
 from . import cj_textpredict
 from . import nh_textpredict
-
-
+from . import thirties_textpredict
+from . import hundred_textpredict
+from . import big_textpredict
+from . import foreign_textpredict
+from . import mid_textpredict
+from . import offering_textpredict
+from . import kosdaq_textpredict
+from . import public_textpredict
 
 # Create your views here.
 def index(request):
@@ -59,6 +65,32 @@ def company(request):
         
         context = { "msg": '긍정적인 자소서입니다.' if analysis_result == 1 else '부정적인 자소서입니다.', "url":"/board/company/"}
         return render(request, "alert.html", context)
+    
+def comtype(request):
+    if request.method !="POST" : #GET 방식일때
+        return render(request, "board/comtype.html")             
+    else: # POST 방식 요청
+        content = request.POST["content"]
+        if company == "30":
+            analysis_result = thirties_textpredict.analyze_text(content)      
+        elif company == "100":
+            analysis_result = hundred_textpredict.analyze_text(content)
+        elif company == "big":
+            analysis_result = big_textpredict.analyze_text(content)
+        elif company == "pub":
+                analysis_result = public_textpredict.analyze_text(content)    
+        elif company == "foreign":
+            analysis_result = foreign_textpredict.analyze_text(content)
+        elif company == "mid":
+            analysis_result = mid_textpredict.analyze_text(content)
+        elif company == "offer":
+            analysis_result = offering_textpredict.analyze_text(content)
+        elif company == "kos":
+            analysis_result = kosdaq_textpredict.analyze_text(content)     
+        else : analysis_result = textpredict.analyze_text(content) # 자소서 분석 함수 호출                               
+        
+        context = { "msg": '긍정적인 자소서입니다.' if analysis_result == 1 else '부정적인 자소서입니다.', "url":"/board/comtype/"}
+        return render(request, "alert.html", context)    
              
 @loginIdchk
 def resume(request, id):
