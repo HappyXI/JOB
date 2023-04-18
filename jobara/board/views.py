@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 
 from intercept.intercepter import loginIdchk
 from intercept.intercepter import loginChk
+from intercept.intercepter import memChk
 from django.core.paginator import Paginator
 from .samsung_textpredict import analyze_text
 
@@ -144,8 +145,8 @@ def write(request):
                           #num 기본키 값이 새값
         return HttpResponseRedirect('../list')
 
+@memChk
 def list(request):
-    
     #pageNum 파라미터를 정수형으로 변환
     #파라미터가 없으면 1이 기본값
     pagenum = int(request.GET.get("pageNum", 1))

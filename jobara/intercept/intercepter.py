@@ -35,6 +35,16 @@ def loginChk(func):
     def check(request):
         context = {"msg":"로그인하세요", "url":"/member/login/"}
         return render(request, "alert.html", context)
+    
+def memChk(func):
+    def check(request):
+        try : 
+            login = request.session["login"]
+        except:
+            context = {"msg":"로그인하세요", "url":"/member/login/"}
+            return render(request, "alert.html", context)
+        return func(request)
+    return check
 
 def adminChk(func):
     def check(request):
