@@ -8,23 +8,81 @@
 </script>
 <form action="/member/join/" name="f" method="post">
 {% csrf_token%}
+
+<tr>
+  <th colspan="3"><span style="color:red">&nbsp;&nbsp;&nbsp;*</span>&nbsp;&nbsp;필수 입력사항입니다</th>
+</tr>
  <input type="hidden" name="picture" value="" >
  <table><tr><td rowspan="4" valign="bottom">
    <img src="" width="100" height="120" id="pic"><br>
  <font size="1"><a href="javascript:win_upload()">사진등록</a></font>
- </td><th>아이디</th><td><input type="text" name="id"></td></tr>
- <tr><th>비밀번호</th><td><input type="password" name="pass"></td></tr>
- <tr><th>이름</th><td><input type="text" name="name"></td></tr>
- <tr><th>성별</th>
-     <td><input type="radio" name="gender" value="1" checked>남
-         <input type="radio" name="gender" value="2">여</td></tr>
-<tr><th>전화번호</th>
-    <td colspan="2"><input type="text" name="tel"></td></tr>
-<tr><th>이메일</th>
-    <td colspan="2"><input type="text" name="email"></td></tr>
+ 
+<tr>
+  <th>아이디 <span style="color:red">*</span></th>
+  <td>
+    <input type="text" name="id" required>
+  </td>
+</tr>
+<tr>
+  <th>비밀번호 <span style="color:red">*</span></th>
+  <td>
+    <input type="password" name="pass" id="password" required>
+  </td>
+</tr>
+<tr>
+  <th>비밀번호 확인 <span style="color:red">*</span></th>
+  <td>
+    <input type="password" name="pass_confirm" id="password-confirm" required onkeyup="checkPassword()">
+    <span id="message" style="display: inline-block; margin-left: 10px; color: red;"></span>
+  </td>
+</tr>
+<script>
+function checkPassword() {
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("password-confirm").value;
+  const messageElement = document.getElementById("message");
+
+  if (password !== confirmPassword) {
+    messageElement.innerHTML = "비밀번호가 일치하지 않습니다.";
+  } else {
+    messageElement.innerHTML = "비밀번호가 일치합니다.&nbsp;&nbsp;&nbsp;";
+  }
+}
+// 비밀번호 불일치 메시지를 항상 표시하도록 수정
+document.getElementById("message").innerHTML = "비밀번호가 일치하지 않습니다.";
+</script>
+</script>
+
+</script>
+<tr>
+  <th>이름 <span style="color:red">*</span></th>
+  <td>
+    <input type="text" name="name" required>
+  </td>
+</tr>
+<tr>
+  <th>성별 <span style="color:red">*</span></th>
+  <td>
+    <input type="radio" name="gender" value="1" required>남
+    <input type="radio" name="gender" value="2" required>여
+  </td>
+</tr>
+<tr>
+  <th>전화번호 <span style="color:red">*</span></th>
+  <td colspan="2">
+    <input type="text" name="tel" required pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{3,4}">
+  </td>
+</tr>
+<tr>
+  <th>이메일 <span style="color:red">*</span></th>
+  <td colspan="2">
+    <input type="email" name="email" required>
+  </td>
+</tr>
 <tr><th>생년월일</th>
     <td colspan="2"><input type="date" name="birthday"></td></tr>
-<tr><th>주소</th>
+<tr><th>주소</th> 
+    <td colspan="2"><input type="button" onclick="sample4_execDaumPostcode()" value="주소 찾기"></td></tr>
     <td colspan="2"><input type="button" onclick="sample4_execDaumPostcode()" value="주소 찾기"></td></tr>
 </table>
 <!--<input type="text" id="sample4_postcode" placeholder="우편번호">-->
