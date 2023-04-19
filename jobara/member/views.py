@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Member
 from django.http import HttpResponseRedirect
 import time
-from django.contrib import auth
+from django.contrib import auth, messages
 from intercept.intercepter import loginIdchk
 from intercept.intercepter import loginChk
 from intercept.intercepter import adminChk
+
 
 # Create your views here.
 def index(request):
@@ -17,25 +18,26 @@ def main(request):
     return render(request, "member/main.html")  
 
 def join(request):
-    if request.method != "POST":
-        return render(request, "member/join.html")
-    
-    else:
-        member = Member(id = request.POST["id"],\
-                        name = request.POST["name"],\
-                        pass1 = request.POST["pass"],\
-                        gender = request.POST["gender"],\
-                        tel = request.POST["tel"],\
-                        email = request.POST["email"],\
-                        picture= request.POST["picture"],\
-                        address = request.POST["sample4_roadAddress"],\
-                        address_detail= request.POST["sample4_detailAddress"],\
-                        birthday = request.POST["birthday"])
-        
-        print(member)
-    
-        member.save() #insert 실행
+    if request.method == "POST":
+        birthday = request.POST["birthday"]
+        if not birthday:
+            birthday = None
+        member = Member(
+            id=request.POST["id"],
+            name=request.POST["name"],
+            pass1=request.POST["pass"],
+            gender=request.POST["gender"],
+            tel=request.POST["tel"],
+            email=request.POST["email"],
+            picture=request.POST["picture"],
+            address=request.POST["sample4_roadAddress"],
+            address_detail=request.POST["sample4_detailAddress"],
+            birthday=birthday
+        )
+        member.save()
         return HttpResponseRedirect("/member/login")
+    else:
+        return render(request, "member/join.html")
 
 @loginChk
 def delete(request, id):
