@@ -137,4 +137,4 @@ MEDIA_URL = "/file/"
 MEDIA_ROOT=os.path.join(BASE_DIR,"file")
 
 #세션 만료 시간 : 5분
-SESSION_COOKIE_AGE = 300
+#SESSION_COOKIE_AGE = 300
